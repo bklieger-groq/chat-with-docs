@@ -70,3 +70,9 @@ export type AIMessage = {
     | 'followup'
     | 'end'
 }
+
+export interface NearTextType {
+  concepts: [string] | [];
+  certainty?: number;
+  moveAwayFrom?: object;
+}
