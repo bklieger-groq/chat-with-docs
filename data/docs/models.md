@@ -1,4 +1,4 @@
-[https://console.groq.com/docs/models]
+[Supported Models](https://console.groq.com/docs/models)
 
 **Supported Models**
 GroqCloud currently supports the following models:

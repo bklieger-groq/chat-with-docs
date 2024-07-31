@@ -1,4 +1,4 @@
-[https://console.groq.com/docs/errors]
+[API Error Codes and Responses](https://console.groq.com/docs/errors)
 
 API Error Codes and Responses
 Our API uses standard HTTP response status codes to indicate the success or failure of an API request. In cases of errors, the body of the response will contain a JSON object with details about the error. Below are the error codes you may encounter, along with their descriptions and example response bodies.
