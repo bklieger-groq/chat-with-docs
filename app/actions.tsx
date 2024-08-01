@@ -11,6 +11,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { Section } from '@/components/section'
 import { FollowupPanel } from '@/components/followup-panel'
 // import { inquire, researcher, taskManager, querySuggestor } from '@/lib/agents'
+import { researcher, querySuggestor } from '@/lib/agents'
 import { writer } from '@/lib/agents/writer'
 import { Chat } from '@/lib/types'
 import { AIMessage } from '@/lib/types'
@@ -153,34 +154,43 @@ async function submit(
     //   useSpecificAPI
     //     ? toolOutputs.length === 0 && answer.length === 0 && !errorOccurred
     //     : (stopReason !== 'stop' || answer.length === 0) && !errorOccurred
-    // ) {
+    // ) 
+    
     //   // Search the web and generate the answer
-    //   const { fullResponse, hasError, toolResponses, finishReason } =
-    //     await researcher(uiStream, streamText, messages)
-    //   stopReason = finishReason || ''
-    //   answer = fullResponse
-    //   toolOutputs = toolResponses
-    //   errorOccurred = hasError
+      const { fullResponse, hasError, toolResponses, finishReason } =
+        await researcher(uiStream, streamText, messages)
+      stopReason = finishReason || ''
+      answer = fullResponse
+      toolOutputs = toolResponses
+      errorOccurred = hasError
+  
 
-    //   if (toolOutputs.length > 0) {
-    //     toolOutputs.map(output => {
-    //       aiState.update({
-    //         ...aiState.get(),
-    //         messages: [
-    //           ...aiState.get().messages,
-    //           {
-    //             id: groupId,
-    //             role: 'tool',
-    //             content: JSON.stringify(output.result),
-    //             name: output.toolName,
-    //             type: 'tool'
-    //           }
-    //         ]
-    //       })
-    //     })
-    //   }
-    // }
+      if (toolOutputs.length > 0) {
+        toolOutputs.map(output => {
+          aiState.update({
+            ...aiState.get(),
+            messages: [
+              ...aiState.get().messages,
+              {
+                id: groupId,
+                role: 'tool',
+                content: JSON.stringify(output.result),
+                name: output.toolName,
+                type: 'tool'
+              }
+            ]
+          });     
 
+          const searchResults = createStreamableValue()
+          searchResults.done(JSON.stringify(output))
+            
+        uiStream.append(
+          <SearchSection result={searchResults.value}/>
+        )
+
+      });
+      }
+          
     // If useSpecificAPI is enabled, generate the answer using the specific model
     if (answer.length === 0 && !errorOccurred) {
       // modify the messages to be used by the specific model
@@ -212,32 +222,33 @@ async function submit(
       })
 
       // Generate related queries
-      // const relatedQueries = await querySuggestor(uiStream, processedMessages)
-      // // Add follow-up panel
-      // uiStream.append(
-      //   <Section title="Follow-up">
-      //     <FollowupPanel />
-      //   </Section>
-      // )
+      const relatedQueries = await querySuggestor(uiStream, processedMessages)
+      // Add follow-up panel
+      uiStream.append(
+        <Section title="Follow-up">
+          <FollowupPanel />
+        </Section>
+      )
 
-      // aiState.done({
-      //   ...aiState.get(),
-      //   messages: [
-      //     ...aiState.get().messages,
-      //     {
-      //       id: groupId,
-      //       role: 'assistant',
-      //       content: JSON.stringify(relatedQueries),
-      //       type: 'related'
-      //     },
-      //     {
-      //       id: groupId,
-      //       role: 'assistant',
-      //       content: 'followup',
-      //       type: 'followup'
-      //     }
-      //   ]
-      // })
+      aiState.done({
+        ...aiState.get(),
+        messages: [
+          ...aiState.get().messages,
+          {
+            id: groupId,
+            role: 'assistant',
+            content: JSON.stringify(relatedQueries),
+            type: 'related'
+          },
+          {
+            id: groupId,
+            role: 'assistant',
+            content: 'followup',
+            type: 'followup'
+          }
+        ]
+      })
+
     } else {
       aiState.done(aiState.get())
       streamText.done()
@@ -413,24 +424,10 @@ export const getUIStateFromAIState = (aiState: Chat) => {
             const searchResults = createStreamableValue()
             searchResults.done(JSON.stringify(toolOutput))
             switch (name) {
-              case 'search':
+              case 'docSearchTool':
                 return {
                   id,
                   component: <SearchSection result={searchResults.value} />,
-                  isCollapsed: isCollapsed.value
-                }
-              case 'retrieve':
-                return {
-                  id,
-                  component: <RetrieveSection data={toolOutput} />,
-                  isCollapsed: isCollapsed.value
-                }
-              case 'videoSearch':
-                return {
-                  id,
-                  component: (
-                    <VideoSearchSection result={searchResults.value} />
-                  ),
                   isCollapsed: isCollapsed.value
                 }
             }

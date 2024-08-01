@@ -3,6 +3,7 @@ import { CoreMessage, streamObject } from 'ai'
 import { PartialRelated, relatedSchema } from '@/lib/schema/related'
 import SearchRelated from '@/components/search-related'
 import { getModel } from '../utils'
+import { createOpenAI } from '@ai-sdk/openai'
 
 export async function querySuggestor(
   uiStream: ReturnType<typeof createStreamableUI>,
@@ -18,18 +19,23 @@ export async function querySuggestor(
     }
   }) as CoreMessage[]
 
+  const groq = createOpenAI({
+    baseURL: "https://api.groq.com/openai/v1",
+    apiKey: process.env.GROQ_API_KEY,
+  })
+
   let finalRelatedQueries: PartialRelated = {}
   await streamObject({
-    model: getModel(),
-    system: `As a professional web researcher, your task is to generate a set of three queries that explore the subject matter more deeply, building upon the initial query and the information uncovered in its search results.
+    model: groq("llama3-8b-8192"),
+    system: `As a development documentation assistant, your task is to generate a set of three queries that explore the subject matter more deeply, building upon the initial query and the information uncovered in its search results.
 
-    For instance, if the original query was "Starship's third test flight key milestones", your output should follow this format:
+    For instance, if the original query was "How can I integrate Groq into my app?", your output should follow this format:
 
     "{
       "related": [
-        "What were the primary objectives achieved during Starship's third test flight?",
-        "What factors contributed to the ultimate outcome of Starship's third test flight?",
-        "How will the results of the third test flight influence SpaceX's future development plans for Starship?"
+        "What client libraries does Groq have?",
+        "What are Groq's quickstart instructions?",
+        "Can Groq integrate into an OpenAI app?"
       ]
     }"
 

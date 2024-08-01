@@ -1,5 +1,4 @@
 export type SearchResults = {
-  images: string[]
   results: SearchResultItem[]
   query: string
 }
@@ -52,6 +51,22 @@ export interface Chat extends Record<string, any> {
   path: string
   messages: AIMessage[]
   sharePath?: string
+}
+
+export interface InputResult {
+  type: string;
+  toolCallId: string;
+  toolName: string;
+  args: {
+    url: string;
+  };
+  result: {
+    results: {
+      title: string;
+      url: string;
+      content: string;
+    }[];
+  };
 }
 
 export type AIMessage = {

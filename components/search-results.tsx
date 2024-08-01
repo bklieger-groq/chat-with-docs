@@ -12,6 +12,10 @@ export interface SearchResultsProps {
 }
 
 export function SearchResults({ results }: SearchResultsProps) {
+  console.log("Here below");
+  console.log(results); // TODO: remove
+  console.log("HERE^");
+  
   // State to manage whether to display the results
   const [showAllResults, setShowAllResults] = useState(false)
 
