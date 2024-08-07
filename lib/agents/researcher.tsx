@@ -33,24 +33,20 @@ export async function researcher(
 
 
   const result = await streamText({
-    model: groq("llama3-70b-8192"),
-    maxTokens: 2500,
-    system: `As a professional search expert, you possess the ability to search for any information in the Groq development documentation.
+    model: groq("llama3-groq-70b-8192-tool-use-preview"),
+    maxTokens: 500,
+    system: `As a professional documentation search expert, you possess the ability to search for any information in the Groq development documentation.
 
     For each user query, utilize the search results to their fullest potential to provide additional information and assistance in your response.
 
-    Aim to directly address the user's question, augmenting your response with insights gleaned from the search results.
-    Whenever quoting or referencing information from a specific URL, always explicitly cite the source URL using the [[number]](url) format. Multiple citations can be included as needed, e.g., [[number]](url), [[number]](url).
-    The number must always match the order of the search results.
-    The docSearch tool takes a query parameter. You must search for something relevant to the user's query to answer their question.
-
-    Please match the language of the response to the user's language. Current date and time: ${currentDate}
+    Aim to directly address the user's question. The search is semantic. Include relevant keywords and concepts.
     `,
     messages: processedMessages,
     tools: getTools({
       uiStream,
       fullResponse
     }),
+    toolChoice: 'required',
     onFinish: async event => {
       finishReason = event.finishReason
       fullResponse = event.text
@@ -66,7 +62,7 @@ export async function researcher(
   if (!result) {
     return { result, fullResponse, hasError, toolResponses: [] }
   }
-
+  
   const hasToolResult = messages.some(message => message.role === 'tool')
   if (hasToolResult) {
     uiStream.append(answerSection)

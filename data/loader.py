@@ -42,7 +42,7 @@ except UnexpectedStatusCodeError as e:
 
 documentation = client.collections.get("GroqCloudDocumentation")
 
-docs = get_docs()
+docs = get_docs(docs_directory="export")
 
 def add_record(url,title,content):
     return documentation.data.insert({

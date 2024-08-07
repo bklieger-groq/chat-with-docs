@@ -39,7 +39,6 @@ export function SearchSection({ result, includeDomains }: SearchSectionProps) {
   const [data, error, pending] = useStreamableValue(result)
   const searchResults: TypeSearchResults = transformSearchResults(data ? JSON.parse(data) : undefined)
 
-  console.log(searchResults)
   const includeDomainsString = includeDomains
     ? ` [${includeDomains.join(', ')}]`
     : ''

@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     let nearText: NearTextType = {
       concepts: [query ?? "What is Groq?"], // Backup for pickup up generic material in case tool calling fails.
-      certainty: 0.9
+      certainty: 0.90
     }
 
     let recDataBuilder = client.graphql
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       .withClassName('GroqCloudDocumentation')
       .withFields('content title url')
       .withNearText(nearText)
-      .withLimit(5);
+      .withLimit(3);
     
     const recData = await recDataBuilder.do();
 

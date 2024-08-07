@@ -15,6 +15,7 @@ export const docSearchTool = ({ uiStream, fullResponse }: ToolProps) => tool({
 
     let results: SearchResultsType | undefined
     try {
+      console.log("HERE: ",query);
         const response = await fetch('http://localhost:4000/api/docs', { // TODO: Change hard code
             method: 'POST',
             headers: {
