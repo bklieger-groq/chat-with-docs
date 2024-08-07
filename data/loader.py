@@ -4,6 +4,7 @@ from weaviate.classes.config import Property, DataType
 from weaviate.exceptions import UnexpectedStatusCodeError
 from dotenv import load_dotenv
 import os
+from summary_agent import summarize_content
 
 from getDocs import get_docs
 
@@ -27,7 +28,8 @@ try:
         properties=[
             Property(name="url", data_type=DataType.TEXT),
             Property(name="title", data_type=DataType.TEXT),
-            Property(name="content", data_type=DataType.TEXT),
+            Property(name="summary", data_type=DataType.TEXT),
+            Property(name="content", data_type=DataType.TEXT,skip_vectorization=True),
         ],
         vectorizer_config=weaviate.classes.config.Configure.Vectorizer.text2vec_openai(),
     )
@@ -48,6 +50,7 @@ def add_record(url,title,content):
     return documentation.data.insert({
         "url": url,
         "title": title,
+        "summary": summarize_content(f"{content}\nThis is the page URL: {url}"),
         "content": content,
     })
 

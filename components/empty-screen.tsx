@@ -3,20 +3,20 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'What is GPT-4o mini?',
-    message: 'What is GPT-4o mini?'
+    heading: 'How can I modify my OpenAI app to use Groq?',
+    message: 'How can I modify my OpenAI app to use Groq?'
   },
   {
-    heading: 'Why is Nvidia growing rapidly?',
-    message: 'Why is Nvidia growing rapidly?'
+    heading: 'What libraries does Groq have?',
+    message: 'What libraries does Groq have?'
   },
   {
-    heading: 'How does the Vercel AI SDK work?',
-    message: 'How does the Vercel AI SDK work?'
+    heading: 'What integrations does Groq have?',
+    message: 'What integrations does Groq have?'
   },
   {
-    heading: 'Tesla vs Rivian',
-    message: 'Tesla vs Rivian'
+    heading: 'What models are on Groq?',
+    message: 'What models are on Groq?'
   }
 ]
 export function EmptyScreen({

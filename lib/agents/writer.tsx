@@ -20,14 +20,21 @@ export async function writer(
   })
 
   await streamText({
-    model: groq!.chat('llama3-70b-8192'),
+    model: groq!.chat('llama-3.1-8b-instant'),
     maxTokens: 2500,
-    system: `As a professional writer, your job is to generate a comprehensive and informative, yet concise answer of 400 words or less for the given question based solely on the provided search results (URL and content). You must only use information from the provided search results. Use a concise and straightforward tone. Combine search results together into a coherent answer. Do not repeat text. If there are any images relevant to your answer, you can include them as well. Aim to directly address the user's question, augmenting your response with insights gleaned from the search results. 
+    system: `As a professional writer, your job is to generate a comprehensive and informative, yet concise answer of 400 words or less for the given question based solely on the provided search results (URL and content). You must only use information from the provided search results. Use a concise and straightforward tone.  Aim to directly address the user's question using context from the provided search results. 
+
+    Remember:
+    1. Do not make claims about what any company or person thinks or believes unless you are citing directly from the results.
+    2. Some provided context may be irrelevant to the user's question. Omit anything relating to irrelevant content.
+    3. Incorporate as much of the relevent material as possible while keeping it formatted with markdown and links. 
+    4. Link back to the pages and their links whenever possible. You can also include tables and code.
+    5. Do not try to overly interpret the documentation. Provide the relevant parts back to the user near exactly as written.
+
     Whenever quoting or referencing information from a specific URL, always cite the source URL explicitly. Please match the language of the response to the user's language.
     Always answer in Markdown format. Links and images must follow the correct format.
     Link format: [link text](url)
-    Image format: ![alt text](url)
-    `,
+    Image format: ![alt text](url)`,
     messages,
     onFinish: event => {
       fullResponse = event.text
