@@ -10,6 +10,8 @@ load_dotenv()
 
 # Initialize FirecrawlApp
 app = FirecrawlApp(api_key=os.environ.get("FC_API_KEY"))
+website = os.environ.get("SCRAPE_SITE")
+
 
 # Function to create a valid filename from URL
 def url_to_filename(url):
@@ -29,30 +31,31 @@ def load_from_json(filename):
     with open(filename, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-# Check if cache file exists
-cache_file = 'cache.json'
-if os.path.exists(cache_file):
-    print("Loading results from cache...")
-    crawl_result = load_from_json(cache_file)
-else:
-    print("Crawling website...")
-    crawl_result = app.crawl_url('https://console.groq.com/docs', {'crawlerOptions': {'excludes': ['blog/*']}})
-    save_to_json(crawl_result, cache_file)
-    print("Results saved to cache.")
+def scrape_site(website=website):
+    # Check if cache file exists
+    cache_file = 'cache.json'
+    if os.path.exists(cache_file):
+        print("Loading results from cache...")
+        crawl_result = load_from_json(cache_file)
+    else:
+        print("Crawling website...")
+        crawl_result = app.crawl_url(website, {'crawlerOptions': {'excludes': ['blog/*']}}) # TODO: remove blog exclude
+        save_to_json(crawl_result, cache_file)
+        print("Results saved to cache.")
 
-# Create export directory if it doesn't exist
-export_dir = 'export'
-os.makedirs(export_dir, exist_ok=True)
+    # Create export directory if it doesn't exist
+    export_dir = 'export'
+    os.makedirs(export_dir, exist_ok=True)
 
-# Process each result
-for result in crawl_result:
-    markdown_content = f"[{result['metadata']['ogTitle']}]({result['metadata']['sourceURL']})\n\n{result['markdown']}"
-    filename = url_to_filename(result['metadata']['sourceURL'])
-    file_path = os.path.join(export_dir, filename)
-    
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(markdown_content)
-    
-    print(f"Saved: {file_path}")
+    # Process each result
+    for result in crawl_result:
+        markdown_content = f"[{result['metadata']['ogTitle']}]({result['metadata']['sourceURL']})\n\n{result['markdown']}"
+        filename = url_to_filename(result['metadata']['sourceURL'])
+        file_path = os.path.join(export_dir, filename)
+        
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(markdown_content)
+        
+        print(f"Saved: {file_path}")
 
-print("Scraping and exporting completed.")
+    print("Scraping and exporting completed.")

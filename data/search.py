@@ -20,13 +20,14 @@ client = weaviate.connect_to_weaviate_cloud(
     headers={'X-OpenAI-Api-key': openai_api_key}
 )
 
-documentation = client.collections.get("GroqCloudDocumentation")
+def get_query_results(query="What models are available?"):
+    documentation = client.collections.get("GroqCloudDocumentation")
 
-response = documentation.query.near_text(
-    query="What models are available?",
-    limit=1
-)
+    response = documentation.query.near_text(
+        query=query,
+        limit=1
+    )
 
-print(response.objects[0].properties)
+    print(response.objects[0].properties)
 
-client.close()
+    client.close()

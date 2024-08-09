@@ -40,6 +40,8 @@ export async function researcher(
     For each user query, utilize the search results to their fullest potential to provide additional information and assistance in your response.
 
     Aim to directly address the user's question. The search is semantic. Include relevant keywords and concepts.
+
+    Only complete one search. Do not provide multiple queries. Your query should be comprehensive.
     `,
     messages: processedMessages,
     tools: getTools({
