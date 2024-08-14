@@ -11,7 +11,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { Section } from '@/components/section'
 import { FollowupPanel } from '@/components/followup-panel'
 // import { inquire, researcher, taskManager, querySuggestor } from '@/lib/agents'
-import { researcher, querySuggestor } from '@/lib/agents'
+import { researcher, querySuggestor, filterer } from '@/lib/agents'
 import { writer } from '@/lib/agents/writer'
 import { Chat } from '@/lib/types'
 import { AIMessage } from '@/lib/types'
@@ -229,7 +229,7 @@ async function submit(
           <FollowupPanel />
         </Section>
       )
-
+      
       aiState.done({
         ...aiState.get(),
         messages: [

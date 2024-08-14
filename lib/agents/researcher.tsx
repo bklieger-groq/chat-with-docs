@@ -1,6 +1,6 @@
 import { createStreamableUI, createStreamableValue } from 'ai/rsc'
 import { CoreMessage, ToolCallPart, ToolResultPart, streamText } from 'ai'
-import { getTools } from './tools'
+import { getDocTools } from './tools'
 import { getModel, transformToolMessages } from '../utils'
 import { AnswerSection } from '@/components/answer-section'
 import { createOpenAI } from '@ai-sdk/openai'
@@ -44,7 +44,7 @@ export async function researcher(
     Only complete one search. Do not provide multiple queries. Your query should be comprehensive.
     `,
     messages: processedMessages,
-    tools: getTools({
+    tools: getDocTools({
       uiStream,
       fullResponse
     }),
@@ -108,7 +108,6 @@ export async function researcher(
     // Add tool responses to the messages
     messages.push({ role: 'tool', content: toolResponses })
   }
-  console.log(messages);
 
   return { result, fullResponse, hasError, toolResponses, finishReason }
 }

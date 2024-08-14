@@ -31,16 +31,18 @@ export async function POST(req: NextRequest) {
       .withClassName('GroqCloudDocumentation')
       .withFields('content title url')
       .withNearText(nearText)
-      .withLimit(3);
-    
+      .withLimit(5);
+
     const recData = await recDataBuilder.do();
 
+    const initialSearchResults: SearchResultItem[] = recData.data.Get.GroqCloudDocumentation.map((item: any): SearchResultItem => ({
+      title: item.title,
+      url: item.url,
+      content: item.content
+    }));
+
     const searchResults: SearchResults = {
-      results: recData.data.Get.GroqCloudDocumentation.map((item: any): SearchResultItem => ({
-        title: item.title,
-        url: item.url,
-        content: item.content
-      })),
+      results: initialSearchResults,
       query: query
     };
 

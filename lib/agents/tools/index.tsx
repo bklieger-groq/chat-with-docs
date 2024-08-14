@@ -6,7 +6,7 @@ export interface ToolProps {
   fullResponse: string
 }
 
-export const getTools = ({ uiStream, fullResponse }: ToolProps) => {
+export const getDocTools = ({ uiStream, fullResponse }: ToolProps) => {
   const tools: any = {
     docSearch: docSearchTool({
       uiStream,
