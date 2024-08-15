@@ -163,7 +163,6 @@ async function submit(
       answer = fullResponse
       toolOutputs = toolResponses
       errorOccurred = hasError
-  
 
       if (toolOutputs.length > 0) {
         toolOutputs.map(output => {
@@ -190,11 +189,9 @@ async function submit(
 
       });
       }
-          
-    // If useSpecificAPI is enabled, generate the answer using the specific model
-    if (answer.length === 0 && !errorOccurred) {
-      // modify the messages to be used by the specific model
-      const modifiedMessages = transformToolMessages(messages)
+
+    if (!errorOccurred) {
+      const modifiedMessages = messages // transformToolMessages(messages)
       const latestMessages = modifiedMessages.slice(maxMessages * -1)
       const { response, hasError } = await writer(uiStream, latestMessages)
       answer = response

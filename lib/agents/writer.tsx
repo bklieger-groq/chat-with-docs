@@ -18,6 +18,7 @@ export async function writer(
     baseURL: "https://api.groq.com/openai/v1",
     apiKey: process.env.GROQ_API_KEY,
   })
+  // console.log(JSON.stringify(messages, null, 2));
 
   await streamText({
     model: groq!.chat('llama-3.1-8b-instant'), //llama-3.1-8b-instant

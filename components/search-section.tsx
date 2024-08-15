@@ -49,7 +49,7 @@ export function SearchSection({ result, includeDomains }: SearchSectionProps) {
           {/* <Section size="sm" className="pt-2 pb-0">
             <ToolBadge tool="search">{`${searchResults.query}${includeDomainsString}`}</ToolBadge>
           </Section> */}
-          <Section title="Groq Documentation">
+          <Section title="Documentation">
             <SearchResults results={searchResults.results} />
           </Section>
         </>

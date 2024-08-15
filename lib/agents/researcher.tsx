@@ -64,12 +64,12 @@ export async function researcher(
   if (!result) {
     return { result, fullResponse, hasError, toolResponses: [] }
   }
-  
+
   const hasToolResult = messages.some(message => message.role === 'tool')
   if (hasToolResult) {
     uiStream.append(answerSection)
   }
-  
+
   // Process the response
   const toolCalls: ToolCallPart[] = []
   const toolResponses: ToolResultPart[] = []
@@ -78,9 +78,7 @@ export async function researcher(
       case 'text-delta':
         if (delta.textDelta) {
           fullResponse += delta.textDelta
-        
             streamableAnswer.update(fullResponse)
-          
         }
         break
       case 'tool-call':
