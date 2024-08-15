@@ -3,16 +3,12 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'How can I modify my OpenAI app to use Groq?',
-    message: 'How can I modify my OpenAI app to use Groq?'
+    heading: 'How can I get started with Groq?',
+    message: 'How can I get started with Groq?'
   },
   {
     heading: 'What libraries does Groq have?',
     message: 'What libraries does Groq have?'
-  },
-  {
-    heading: 'What integrations does Groq have?',
-    message: 'What integrations does Groq have?'
   },
   {
     heading: 'What models are on Groq?',

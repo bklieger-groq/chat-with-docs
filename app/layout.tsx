@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter as FontSans } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -9,17 +9,17 @@ import { Sidebar } from '@/components/sidebar'
 import { Toaster } from '@/components/ui/sonner'
 import { AppStateProvider } from '@/lib/utils/app-state'
 
-const fontSans = FontSans({
+const fontSans = Montserrat({
   subsets: ['latin'],
-  variable: '--font-sans'
+  variable: '--font-sans',
 })
 
-const title = 'Morphic'
+const title = 'Chat with Docs'
 const description =
-  'A fully open-source AI-powered answer engine with a generative UI.'
+  'Chat with Docs - Powered by Groq - Talk to your documentation'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://morphic.sh'),
+  metadataBase: new URL('https://placeholder.groq.com'),
   title,
   description,
   openGraph: {

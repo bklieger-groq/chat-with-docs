@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       .withClassName('GroqCloudDocumentation')
       .withFields('content title url')
       .withNearText(nearText)
-      .withLimit(5);
+      .withLimit(3);
 
     const recData = await recDataBuilder.do();
 

@@ -12,6 +12,7 @@ import { EmptyScreen } from './empty-screen'
 import Textarea from 'react-textarea-autosize'
 import { generateId } from 'ai'
 import { useAppState } from '@/lib/utils/app-state'
+import Image from 'next/image'
 
 interface ChatPanelProps {
   messages: UIState
@@ -114,9 +115,17 @@ export function ChatPanel({ messages, query }: ChatPanelProps) {
   return (
     <div
       className={
-        'fixed bottom-8 left-0 right-0 top-10 mx-auto h-screen flex flex-col items-center justify-center'
+        'fixed bottom-8 left-0 right-0 top-0 mx-auto h-screen flex flex-col items-center justify-center'
       }
     >
+      <Image
+          src="/groqlabs-light-mode.png"
+          alt="GroqLabs Logo"
+          width={200}
+          height={60}
+        />
+      <span className="mt-2 mb-10">Chat with Docs - Powered by Groq</span>
+
       <form onSubmit={handleSubmit} className="max-w-2xl w-full px-6">
         <div className="relative flex items-center w-full">
           <Textarea
@@ -150,25 +159,8 @@ export function ChatPanel({ messages, query }: ChatPanelProps) {
                 textarea.form?.requestSubmit()
               }
             }}
-            onHeightChange={height => {
-              // Ensure inputRef.current is defined
-              if (!inputRef.current) return
-
-              // The initial height and left padding is 70px and 2rem
-              const initialHeight = 70
-              // The initial border radius is 32px
-              const initialBorder = 32
-              // The height is incremented by multiples of 20px
-              const multiple = (height - initialHeight) / 20
-
-              // Decrease the border radius by 4px for each 20px height increase
-              const newBorder = initialBorder - 4 * multiple
-              // The lowest border radius will be 8px
-              inputRef.current.style.borderRadius =
-                Math.max(8, newBorder) + 'px'
-            }}
             onFocus={() => setShowEmptyScreen(true)}
-            onBlur={() => setShowEmptyScreen(false)}
+            onBlur={() => setShowEmptyScreen(true)}
           />
           <Button
             type="submit"
