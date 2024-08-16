@@ -2,7 +2,6 @@ import { createStreamableUI, createStreamableValue } from 'ai/rsc'
 import { CoreMessage, streamText } from 'ai'
 import { createOpenAI } from '@ai-sdk/openai'
 import { AnswerSection } from '@/components/answer-section'
-import { AnswerSectionGenerated } from '@/components/answer-section-generated'
 
 export async function writer(
   uiStream: ReturnType<typeof createStreamableUI>,

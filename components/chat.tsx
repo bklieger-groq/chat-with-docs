@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { ChatPanel } from './chat-panel'
 import { ChatMessages } from './chat-messages'

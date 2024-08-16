@@ -2,9 +2,9 @@
 
 import { SearchResults } from './search-results'
 import { SearchSkeleton } from './search-skeleton'
-import { SearchResultsImageSection } from './search-results-image'
+// import { SearchResultsImageSection } from './search-results-image'
 import { Section } from './section'
-import { ToolBadge } from './tool-badge'
+// import { ToolBadge } from './tool-badge'
 import type { SearchResults as TypeSearchResults, SearchResultItem as TypeSearchResultItem, InputResult as TypeInputResult,  } from '@/lib/types'
 import { StreamableValue, useStreamableValue } from 'ai/rsc'
 

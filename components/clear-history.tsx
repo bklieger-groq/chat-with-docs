@@ -13,8 +13,8 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { clearChats } from '@/lib/actions/chat'
-import { toast } from 'sonner'
+// import { clearChats } from '@/lib/actions/chat'
+// import { toast } from 'sonner'
 import { Spinner } from './ui/spinner'
 
 type ClearHistoryProps = {
@@ -46,12 +46,12 @@ export function ClearHistory({ empty }: ClearHistoryProps) {
             onClick={event => {
               event.preventDefault()
               startTransition(async () => {
-                const result = await clearChats()
-                if (result?.error) {
-                  toast.error(result.error)
-                } else {
-                  toast.success('History cleared')
-                }
+                // const result = await clearChats()
+                // if (result?.error) {
+                //   toast.error(result.error)
+                // } else {
+                //   toast.success('History cleared')
+                // }
                 setOpen(false)
               })
             }}

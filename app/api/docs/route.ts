@@ -14,12 +14,17 @@ export async function POST(req: NextRequest) {
       headers['X-OpenAI-Api-Key'] = process.env.OPENAI_API_KEY;
     }
     
+    if (!weaviateClusterUrl || !process.env.WCD_API_KEY) {
+      throw Error("Environment variables missing for Weaviate.")
+    }
+
     const client: WeaviateClient = weaviate.client({
       scheme: 'https',
       host: weaviateClusterUrl,
       apiKey: new ApiKey(process.env.WCD_API_KEY),
       headers: headers,
     });
+
 
     let nearText: NearTextType = {
       concepts: [query ?? "What is Groq?"], // Backup for pickup up generic material in case tool calling fails.

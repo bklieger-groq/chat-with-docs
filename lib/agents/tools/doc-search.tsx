@@ -3,7 +3,6 @@ import { retrieveSchema } from '@/lib/schema/retrieve'
 import { ToolProps } from '.'
 import { SearchSkeleton } from '@/components/search-skeleton'
 import { SearchResults as SearchResultsType } from '@/lib/types'
-import RetrieveSection from '@/components/retrieve-section'
 import { filterer } from '@/lib/agents'
 
 export const docSearchTool = ({ uiStream, fullResponse }: ToolProps) => tool({

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ModeToggle } from './mode-toggle'
-import { IconLogo } from './ui/icons'
-import { cn } from '@/lib/utils'
+// import { IconLogo } from './ui/icons'
+// import { cn } from '@/lib/utils'
 
 export const Header: React.FC = async () => {
   return (

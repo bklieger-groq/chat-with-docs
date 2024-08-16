@@ -2,7 +2,6 @@ import { createStreamableUI, createStreamableValue } from 'ai/rsc'
 import { CoreMessage, streamObject } from 'ai'
 import { PartialRelated, relatedSchema } from '@/lib/schema/related'
 import SearchRelated from '@/components/search-related'
-import { getModel } from '../utils'
 import { createOpenAI } from '@ai-sdk/openai'
 
 export async function querySuggestor(

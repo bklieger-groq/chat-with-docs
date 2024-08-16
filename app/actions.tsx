@@ -11,7 +11,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { Section } from '@/components/section'
 import { FollowupPanel } from '@/components/followup-panel'
 // import { inquire, researcher, taskManager, querySuggestor } from '@/lib/agents'
-import { researcher, querySuggestor, filterer } from '@/lib/agents'
+import { researcher, querySuggestor } from '@/lib/agents'
 import { writer } from '@/lib/agents/writer'
 import { Chat } from '@/lib/types'
 import { AIMessage } from '@/lib/types'
@@ -19,9 +19,9 @@ import { UserMessage } from '@/components/user-message'
 import { SearchSection } from '@/components/search-section'
 import SearchRelated from '@/components/search-related'
 import { CopilotDisplay } from '@/components/copilot-display'
-import RetrieveSection from '@/components/retrieve-section'
-import { VideoSearchSection } from '@/components/video-search-section'
-import { transformToolMessages } from '@/lib/utils'
+// import RetrieveSection from '@/components/retrieve-section'
+// import { VideoSearchSection } from '@/components/video-search-section'
+// import { transformToolMessages } from '@/lib/utils'
 import { AnswerSection } from '@/components/answer-section'
 import { ErrorCard } from '@/components/error-card'
 
@@ -100,7 +100,7 @@ async function submit(
     // Show the spinner
     uiStream.append(<Spinner />)
 
-    let action = { object: { next: 'proceed' } }
+    // let action = { object: { next: 'proceed' } }
     // If the user skips the task, we proceed to the search
     // if (!skip) action = (await taskManager(messages)) ?? action
 

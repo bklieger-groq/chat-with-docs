@@ -2,7 +2,7 @@
 import { generateText, tool } from 'ai'
 import { createOpenAI } from '@ai-sdk/openai'
 import { z } from 'zod'
-import { SearchResultItem } from '@/lib/types'
+import { SearchResults as searchResultsType } from '@/lib/types'
 
 const filterSearchResultsTool = tool({
   description: 'Filter search results based on relevance to the query',
@@ -14,8 +14,8 @@ const filterSearchResultsTool = tool({
 
 export async function filterer(
   query: string,
-  searchResults: SearchResultItem[]
-): Promise<SearchResultItem[]> {
+  searchResults: searchResultsType
+): Promise<searchResultsType> {
   const groq = createOpenAI({
     baseURL: "https://api.groq.com/openai/v1",
     apiKey: process.env.GROQ_API_KEY,

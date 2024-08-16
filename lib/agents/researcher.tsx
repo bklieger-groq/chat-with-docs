@@ -1,7 +1,6 @@
 import { createStreamableUI, createStreamableValue } from 'ai/rsc'
 import { CoreMessage, ToolCallPart, ToolResultPart, streamText } from 'ai'
 import { getDocTools } from './tools'
-import { getModel, transformToolMessages } from '../utils'
 import { AnswerSection } from '@/components/answer-section'
 import { createOpenAI } from '@ai-sdk/openai'
 
@@ -18,12 +17,10 @@ export async function researcher(
   let processedMessages = messages
 
 
-  const includeToolResponses = messages.some(message => message.role === 'tool')
 
   const streamableAnswer = createStreamableValue<string>('')
   const answerSection = <AnswerSection result={streamableAnswer.value} />
 
-  const currentDate = new Date().toLocaleString()
 
 
   const groq = createOpenAI({
