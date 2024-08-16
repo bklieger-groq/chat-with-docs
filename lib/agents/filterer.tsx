@@ -7,7 +7,7 @@ import { SearchResults as searchResultsType } from '@/lib/types'
 const filterSearchResultsTool = tool({
   description: 'Filter search results based on relevance to the query',
   parameters: z.object({
-    indicesToKeep: z.array(z.number()).describe('Indices of the most relevant search results'),
+    indicesToKeep: z.array(z.number()).describe('Indices of the most relevant search results, only those that directly answer the query with a minimum of one source.'),
   }),
   execute: async ({ indicesToKeep }) => ({ indicesToKeep }),
 })
@@ -28,7 +28,9 @@ export async function filterer(
         role: 'system',
         content: `As an AI search result filterer, your task is to analyze search results and determine which are most relevant to the given query. You will receive a query and a list of search results. Your goal is to select the most relevant results and return their indices.
 
-        Analyze each search result carefully, considering its title, URL, and content in relation to the query. Focus on selecting results that directly address the user's question or provide the most pertinent information.
+        If there are results which directly address the query, omit everything which does not directly address it. For instance, an application demo page would not be relevant to a query about which models are supported by Groq.
+
+        Analyze each search result carefully, considering its title, URL, and content in relation to the query.
 
         Return your selection as a JSON array of indices corresponding to the most relevant results.`
       },
@@ -39,7 +41,7 @@ export async function filterer(
 Search Results:
 ${JSON.stringify(searchResults, null, 2)}
 
-Analyze these search results and return the indices of the most relevant ones as a JSON array.`
+Analyze these search results and return the indices of the most relevant ones as a JSON array. Be extremely strict.`
       }
     ],
     tools: {
