@@ -20,7 +20,7 @@ export async function writer(
   // console.log(JSON.stringify(messages, null, 2));
 
   await streamText({
-    model: groq!.chat('llama-3.1-8b-instant'), //llama-3.1-8b-instant
+    model: groq!.chat('llama3-70b-8192'), //llama-3.1-8b-instant
     maxTokens: 2500,
     system: `As a professional writer, your job is to generate a comprehensive and informative, yet concise answer of 400 words or less for the given question based solely on the provided search results (URL and content). You must only use information from the provided search results. Use a concise and straightforward tone.  Aim to directly address the user's question using context from the provided search results. 
 
