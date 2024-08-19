@@ -26,7 +26,7 @@ export async function writer(
 
     Remember:
     1. Do not make claims about what any company or person thinks or believes unless you are citing directly from the results.
-    2. Some provided context may be irrelevant to the user's question. Omit anything relating to irrelevant content.
+    2. Some or all of the provided context may be irrelevant to the user's question. Omit anything relating to irrelevant content. 
     3. Incorporate as much of the relevent material as possible while keeping it formatted with markdown and links. 
     4. Link back to the pages and their links whenever possible. You can also include tables and code.
     5. Do not try to overly interpret the documentation. Provide the relevant parts back to the user near exactly as written.
