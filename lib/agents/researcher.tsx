@@ -39,6 +39,13 @@ export async function researcher(
     Aim to directly address the user's question. The search is semantic. Include relevant keywords and concepts.
 
     Only complete one search. Do not provide multiple queries. Your query should be comprehensive.
+
+    (1) Your search must include the name of the software or platform in it.
+    (2) Your search should be a full question.
+
+    Examples:
+    "What client libraries does Groq have?"
+    "What models are available on Groq?"
     `,
     messages: processedMessages,
     tools: getDocTools({

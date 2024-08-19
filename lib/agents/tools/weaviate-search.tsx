@@ -23,8 +23,8 @@ export async function weaviateSearch(query: string): Promise<SearchResults> {
         });
 
         let nearText: NearTextType = {
-            concepts: [query ?? "What is Groq?"], // Backup for pickup up generic material in case tool calling fails.
-            certainty: 0.90
+            concepts: [query],
+            certainty: 0.70
         }
 
         let recDataBuilder = client.graphql
