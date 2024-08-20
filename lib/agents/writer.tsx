@@ -2,6 +2,7 @@ import { createStreamableUI, createStreamableValue } from 'ai/rsc'
 import { CoreMessage, streamText } from 'ai'
 import { createOpenAI } from '@ai-sdk/openai'
 import { AnswerSection } from '@/components/answer-section'
+import { definitions } from './context/definitions'
 
 export async function writer(
   uiStream: ReturnType<typeof createStreamableUI>,
@@ -22,7 +23,7 @@ export async function writer(
   await streamText({
     model: groq!.chat('llama3-70b-8192'), //llama-3.1-8b-instant
     maxTokens: 2500,
-    system: `As a professional writer, your job is to generate a comprehensive and informative, yet concise answer of 400 words or less for the given question based solely on the provided search results (URL and content). You must only use information from the provided search results. Use a concise and straightforward tone.  Aim to directly address the user's question using context from the provided search results. 
+    system: `### Definitions: `+definitions+`\n### Instructions\nAs a professional writer, your job is to generate a comprehensive and informative, yet concise answer of 400 words or less for the given question based solely on the provided search results (URL and content). You must only use information from the provided search results. Use a concise and straightforward tone.  Aim to directly address the user's question using context from the provided search results. 
 
     Remember:
     1. Do not make claims about what any company or person thinks or believes unless you are citing directly from the results.

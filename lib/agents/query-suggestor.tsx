@@ -3,6 +3,7 @@ import { CoreMessage, streamObject } from 'ai'
 import { PartialRelated, relatedSchema } from '@/lib/schema/related'
 import SearchRelated from '@/components/search-related'
 import { createOpenAI } from '@ai-sdk/openai'
+import { definitions } from './context/definitions'
 
 export async function querySuggestor(
   uiStream: ReturnType<typeof createStreamableUI>,
@@ -26,7 +27,7 @@ export async function querySuggestor(
   let finalRelatedQueries: PartialRelated = {}
   await streamObject({
     model: groq("llama3-8b-8192"),
-    system: `As a development documentation assistant, your task is to generate a set of three queries that explore the subject matter more deeply, building upon the initial query and the information uncovered in its search results.
+    system: `### Definitions: `+definitions+`\n### Instructions\nAs a development documentation assistant, your task is to generate a set of three queries that explore the subject matter more deeply, building upon the initial query and the information uncovered in its search results.
 
     For instance, if the original query was "How can I integrate Groq into my app?", your output should follow this format:
 
@@ -38,8 +39,9 @@ export async function querySuggestor(
       ]
     }"
 
-    Aim to create queries that progressively delve into more specific aspects, implications, or adjacent topics related to the initial query. The goal is to anticipate the user's potential information needs and guide them towards a more comprehensive understanding of the subject matter.
-    Please match the language of the response to the user's language.`,
+    Aim to create queries that address a broad range of potential questions about the documentation that would very likely be well documented. For instance, broad questions about inference in general may not be well supported, but questions about what models are on Groq would be.
+    Please match the language of the response to the user's language.
+    `,
     messages: lastMessages,
     schema: relatedSchema
   })
