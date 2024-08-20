@@ -46,7 +46,7 @@ export async function weaviateSearch(query: string): Promise<SearchResults> {
             results: initialSearchResults,
             query: query
         };
-
+        
         return searchResults;
     } catch (err) {
         console.error(err);

@@ -29,7 +29,6 @@ export const docSearchTool = ({ uiStream, fullResponse }: ToolProps) => tool({
         //       // console.log(res)
         //       return res.json();
         //     });
-      
       results = await weaviateSearch(query);
 
     } catch (error) {
@@ -46,6 +45,7 @@ export const docSearchTool = ({ uiStream, fullResponse }: ToolProps) => tool({
     uiStream.update(null)
 
     const filteredResults = await filterer(query,results);
+
     return filteredResults
   }
 })

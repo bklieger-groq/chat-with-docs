@@ -50,6 +50,7 @@ export async function researcher(
     }),
     toolChoice: 'required',
     onFinish: async event => {
+      // console.log(JSON.stringify(processedMessages, null, 2))
       finishReason = event.finishReason
       fullResponse = event.text
       streamableAnswer.done()

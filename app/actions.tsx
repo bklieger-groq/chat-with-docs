@@ -157,6 +157,7 @@ async function submit(
     // ) 
     
     //   // Search the web and generate the answer
+    
       const { fullResponse, hasError, toolResponses, finishReason } =
         await researcher(uiStream, streamText, messages)
       stopReason = finishReason || ''
