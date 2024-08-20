@@ -20,7 +20,7 @@ export async function filterer(
     baseURL: "https://api.groq.com/openai/v1",
     apiKey: process.env.GROQ_API_KEY,
   })
-  
+
   const response = await generateText({
     model: groq("llama3-groq-70b-8192-tool-use-preview"),
     messages: [
@@ -49,7 +49,7 @@ Analyze these search results and return the indices of the most relevant ones as
     },
     toolChoice: "required"
   })
-
+  
   const toolCallArgs = response.toolResults[0].args
 
   if (toolCallArgs.indicesToKeep) {

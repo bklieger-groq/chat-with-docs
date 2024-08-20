@@ -2,3 +2,4 @@ weaviate-client
 python-dotenv
 firecrawl-py
 groq
+rich

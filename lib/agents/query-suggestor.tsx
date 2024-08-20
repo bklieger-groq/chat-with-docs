@@ -38,8 +38,9 @@ export async function querySuggestor(
       ]
     }"
 
-    Aim to create queries that progressively delve into more specific aspects, implications, or adjacent topics related to the initial query. The goal is to anticipate the user's potential information needs and guide them towards a more comprehensive understanding of the subject matter.
-    Please match the language of the response to the user's language.`,
+    Aim to create queries that address a broad range of potential questions about the documentation that would very likely be well documented. For instance, broad questions about inference in general may not be well supported, but questions about what models are on Groq would be.
+    Please match the language of the response to the user's language.
+    `,
     messages: lastMessages,
     schema: relatedSchema
   })

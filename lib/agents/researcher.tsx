@@ -13,14 +13,12 @@ export async function researcher(
   let hasError = false
   let finishReason = ''
 
-  // Transform the messages if using Ollama provider
   let processedMessages = messages
 
 
 
   const streamableAnswer = createStreamableValue<string>('')
   const answerSection = <AnswerSection result={streamableAnswer.value} />
-
 
 
   const groq = createOpenAI({
@@ -32,11 +30,9 @@ export async function researcher(
   const result = await streamText({
     model: groq("llama3-groq-70b-8192-tool-use-preview"),
     maxTokens: 500,
-    system: `As a professional documentation search expert, you possess the ability to search for any information in the Groq development documentation.
+    system: `As a professional documentation search expert, you possess the ability to search for any information in the Groq developer documentation.
 
-    For each user query, utilize the search results to their fullest potential to provide additional information and assistance in your response.
-
-    Aim to directly address the user's question. The search is semantic. Include relevant keywords and concepts.
+    Find a search query that is likely to directly address the user's question. The search is semantic. Include relevant keywords and concepts.
 
     Only complete one search. Do not provide multiple queries. Your query should be comprehensive.
 
@@ -54,6 +50,7 @@ export async function researcher(
     }),
     toolChoice: 'required',
     onFinish: async event => {
+      // console.log(JSON.stringify(processedMessages, null, 2))
       finishReason = event.finishReason
       fullResponse = event.text
       streamableAnswer.done()
