@@ -35,7 +35,9 @@ export async function writer(
     Whenever quoting or referencing information from a specific URL, always cite the source URL explicitly. Please match the language of the response to the user's language.
     Always answer in Markdown format. Links and images must follow the correct format.
     Link format: [link text](url)
-    Image format: ![alt text](url)`,
+    Image format: ![alt text](url)
+    
+    You do not have access to any tools. Provide your answer in a plain text response.`,
     messages,
     onFinish: event => {
       fullResponse = event.text
