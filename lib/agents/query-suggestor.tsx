@@ -3,7 +3,6 @@ import { CoreMessage, streamObject } from 'ai'
 import { PartialRelated, relatedSchema } from '@/lib/schema/related'
 import SearchRelated from '@/components/search-related'
 import { createOpenAI } from '@ai-sdk/openai'
-import { definitions } from './context/definitions'
 
 export async function querySuggestor(
   uiStream: ReturnType<typeof createStreamableUI>,
@@ -27,7 +26,7 @@ export async function querySuggestor(
   let finalRelatedQueries: PartialRelated = {}
   await streamObject({
     model: groq("llama3-8b-8192"),
-    system: `### Definitions: `+definitions+`\n### Instructions\nAs a development documentation assistant, your task is to generate a set of three queries that explore the subject matter more deeply, building upon the initial query and the information uncovered in its search results.
+    system: `As a development documentation assistant, your task is to generate a set of three queries that explore the subject matter more deeply, building upon the initial query and the information uncovered in its search results.
 
     For instance, if the original query was "How can I integrate Groq into my app?", your output should follow this format:
 
