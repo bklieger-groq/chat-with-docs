@@ -16,19 +16,6 @@ export const docSearchTool = ({ uiStream, fullResponse }: ToolProps) => tool({
 
     let results: SearchResultsType | undefined
     try {
-        // const response = await fetch('http://localhost:4000/api/docs', { // TODO: Change hard code
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //       query,
-        //     })
-        //   })
-        //     .then((res) => {
-        //       // console.log(res)
-        //       return res.json();
-        //     });
       results = await weaviateSearch(query);
 
     } catch (error) {

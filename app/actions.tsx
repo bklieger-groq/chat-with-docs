@@ -10,7 +10,6 @@ import { CoreMessage, generateId, ToolResultPart } from 'ai'
 import { Spinner } from '@/components/ui/spinner'
 import { Section } from '@/components/section'
 import { FollowupPanel } from '@/components/followup-panel'
-// import { inquire, researcher, taskManager, querySuggestor } from '@/lib/agents'
 import { researcher, querySuggestor } from '@/lib/agents'
 import { writer } from '@/lib/agents/writer'
 import { Chat } from '@/lib/types'
@@ -18,10 +17,6 @@ import { AIMessage } from '@/lib/types'
 import { UserMessage } from '@/components/user-message'
 import { SearchSection } from '@/components/search-section'
 import SearchRelated from '@/components/search-related'
-import { CopilotDisplay } from '@/components/copilot-display'
-// import RetrieveSection from '@/components/retrieve-section'
-// import { VideoSearchSection } from '@/components/video-search-section'
-// import { transformToolMessages } from '@/lib/utils'
 import { AnswerSection } from '@/components/answer-section'
 import { ErrorCard } from '@/components/error-card'
 
@@ -100,31 +95,6 @@ async function submit(
     // Show the spinner
     uiStream.append(<Spinner />)
 
-    // let action = { object: { next: 'proceed' } }
-    // If the user skips the task, we proceed to the search
-    // if (!skip) action = (await taskManager(messages)) ?? action
-
-    // if (action.object.next === 'inquire') {
-    //   // Generate inquiry
-    //   const inquiry = await inquire(uiStream, messages)
-    //   uiStream.done()
-    //   isGenerating.done()
-    //   isCollapsed.done(false)
-    //   aiState.done({
-    //     ...aiState.get(),
-    //     messages: [
-    //       ...aiState.get().messages,
-    //       {
-    //         id: generateId(),
-    //         role: 'assistant',
-    //         content: `inquiry: ${inquiry?.question}`,
-    //         type: 'inquiry'
-    //       }
-    //     ]
-    //   })
-    //   return
-    // }
-
     // Set the collapsed state to true
     isCollapsed.done(true)
 
@@ -136,27 +106,7 @@ async function submit(
 
     const streamText = createStreamableValue<string>()
 
-    // If ANTHROPIC_API_KEY is set, update the UI with the answer
-    // If not, update the UI with a div
-    // if (process.env.ANTHROPIC_API_KEY) {
-    //   uiStream.update(
-    //     <AnswerSection result={streamText.value} hasHeader={false} />
-    //   )
-    // } else {
-    //   uiStream.update(<div />)
-    // }
-
     uiStream.update(<div />)
-
-    // If useSpecificAPI is enabled, only function calls will be made
-    // If not using a tool, this model generates the answer
-    // while (
-    //   useSpecificAPI
-    //     ? toolOutputs.length === 0 && answer.length === 0 && !errorOccurred
-    //     : (stopReason !== 'stop' || answer.length === 0) && !errorOccurred
-    // ) 
-    
-    //   // Search the web and generate the answer
 
       const { fullResponse, hasError, toolResponses, finishReason } =
         await researcher(uiStream, streamText, messages)
@@ -192,7 +142,7 @@ async function submit(
       }
 
     if (!errorOccurred) {
-      const modifiedMessages = messages // transformToolMessages(messages)
+      const modifiedMessages = messages
       const latestMessages = modifiedMessages.slice(maxMessages * -1)
       const { response, hasError } = await writer(uiStream, latestMessages)
       answer = response
@@ -379,11 +329,6 @@ export const getUIStateFromAIState = (aiState: Chat) => {
                     showShare={index === 0 && !isSharePage}
                   />
                 )
-              }
-            case 'inquiry':
-              return {
-                id,
-                component: <CopilotDisplay content={content} />
               }
           }
         case 'assistant':
