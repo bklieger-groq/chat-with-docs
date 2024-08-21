@@ -19,7 +19,7 @@ const description =
   'Chat with Docs - Powered by Groq - Talk to your documentation'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://placeholder.groq.com'),
+  metadataBase: new URL('https://groq-docs-chat.vercel.app/'),
   title,
   description,
   openGraph: {
@@ -29,8 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     title,
     description,
-    card: 'summary_large_image',
-    creator: '@miiura'
+    card: 'summary_large_image'
   }
 }
 

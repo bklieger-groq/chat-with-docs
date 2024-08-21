@@ -2,9 +2,7 @@
 
 import { SearchResults } from './search-results'
 import { SearchSkeleton } from './search-skeleton'
-// import { SearchResultsImageSection } from './search-results-image'
 import { Section } from './section'
-// import { ToolBadge } from './tool-badge'
 import type { SearchResults as TypeSearchResults, SearchResultItem as TypeSearchResultItem, InputResult as TypeInputResult,  } from '@/lib/types'
 import { StreamableValue, useStreamableValue } from 'ai/rsc'
 
@@ -46,9 +44,6 @@ export function SearchSection({ result, includeDomains }: SearchSectionProps) {
     <div>
       {!pending && data ? (
         <>
-          {/* <Section size="sm" className="pt-2 pb-0">
-            <ToolBadge tool="search">{`${searchResults.query}${includeDomainsString}`}</ToolBadge>
-          </Section> */}
           <Section title="Documentation">
             <SearchResults results={searchResults.results} />
           </Section>
