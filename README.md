@@ -1,8 +1,29 @@
+<h2 align="center">
+ <br>
+ <img src="https://i.imgur.com/kBZ2OOR.png" alt="Chat with Docs" width="450">
+ <br>
+ <br>
+Chat with Docs - Powered by Groq
+ <br>
+</h2>
+
+<p align="center">
+ <a href="#Overview">Overview</a> •
+ <a href="#Features">Features</a> •
+  <a href="#Interfaces">Interfaces</a> •
+ <a href="#Quickstart">Quickstart</a> •
+ <a href="#Credits">Credits</a>
+</p>
+
+<br>
+
+
 # Morphic
 
-An AI-powered search engine with a generative UI.
+An AI Groq-powered app based upon [Morphic](https://morphic.sh) that responds to questions with documentation links and grounded answers.
 
-![capture](/public/capture-240404_blk.png)
+
+![capture](/public/screen-capture.png)
 
 > [!NOTE]
 > Please note that there are differences between this repository and the official website [morphic.sh](https://morphic.sh). The official website is a fork of this repository with additional features such as authentication, which are necessary for providing the service online. The core source code of Morphic resides in this repository, and it's designed to be easily built and deployed.
